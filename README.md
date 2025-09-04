@@ -22,7 +22,7 @@ This is a React TypeScript application with several bugs and issues that need to
 - Console error: Missing "key" props in list components
 - Text formatting: Make "known" word bold in introduction text
 - User avatar not displaying in app header
-- Optional: Fix countdown timer issues
+- Optional: Fix countdown timer issues (memory leak with multiple setInterval instances)
 - Optional: Add language switcher (English/German)
 
 ### Tech Stack
@@ -67,6 +67,19 @@ This reduces vulnerabilities from 138 (7 critical, 31 high, 100 moderate) to 9 (
 - The `<b>` tag in `en.json` was intentionally preserved as per challenge requirements ("do not change the i18n text")
 - In a production environment, `<strong>` would be the semantically correct choice over `<b>`
 - The solution uses `react-i18next`'s `Trans` component for safe HTML rendering
+
+**Countdown Timer Bug Analysis:**
+
+- **Issue**: Memory leak caused by multiple `setInterval` instances without cleanup
+- **Root Cause**: `useEffect` creates new intervals on every re-render without clearing previous ones
+- **Symptoms**: Countdown accelerates as multiple timers run simultaneously
+- **Reproduction Steps**:
+  1. Open the application in browser
+  2. Navigate between pages or trigger component re-renders
+  3. Observe countdown acceleration (multiple timers running)
+  4. Check browser console for multiple interval creation messages
+- **Impact**: Performance degradation and unpredictable countdown behavior
+- **Solution**: Implement proper cleanup with `clearInterval` in useEffect return function
 
 ---
 
