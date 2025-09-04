@@ -89,6 +89,17 @@ This reduces vulnerabilities from 138 (7 critical, 31 high, 100 moderate) to 9 (
 - **Integration**: Seamlessly integrated with existing i18next configuration
 - **UX**: Dropdown with current language display and flag icons for selection
 
+**URL-based Language Routing:**
+
+- **Feature**: Automatic language detection and setting based on URL paths
+- **Routes**:
+  - `/#/` → Sets English (default)
+  - `/#/en` → Sets English and redirects to `/#/`
+  - `/#/de` → Sets German and redirects to `/#/`
+  - `/#/home` → Sets English and redirects to `/#/`
+- **Implementation**: Custom `LanguageRouter` component handles URL-based language switching
+- **Benefits**: SEO-friendly URLs, direct language access, seamless user experience
+
 **Home Page Refactoring:**
 
 - **Issue**: Hardcoded issues array in component, not internationalized

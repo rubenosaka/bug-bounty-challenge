@@ -1,6 +1,8 @@
 export enum ERoute {
   ROOT = "/",
-  HOME = "/home"
+  HOME = "/home",
+  HOME_EN = "/en",
+  HOME_DE = "/de"
 }
 
 export type TRoute = {

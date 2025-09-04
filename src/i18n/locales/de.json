@@ -2,6 +2,7 @@
   "logout": "Abmelden",
   "appTitle": "Lieferanten OS Anwendung",
   "routes": {
+    "/": "Bug Bounty Challenge",
     "/home": "Bug Bounty Challenge"
   },
   "home": {

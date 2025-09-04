@@ -4,6 +4,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { useTranslation, Trans } from "react-i18next";
+import { useEffect } from "react";
 
 interface Issue {
   id: string;
@@ -13,8 +14,18 @@ interface Issue {
 }
 
 const Home = () => {
-  const { t } = useTranslation("app");
+  const { t, i18n } = useTranslation("app");
   const issues: Issue[] = t("home.issues", { returnObjects: true });
+
+  const setDefaultLanguage = () => {
+    if (i18n.language !== "en" && i18n.language !== "de") {
+      i18n.changeLanguage("en");
+    }
+  };
+
+  useEffect(() => {
+    setDefaultLanguage();
+  }, [i18n]);
 
   return (
     <Box p={2} maxHeight="calc(100vh - 64px)" overflow={["auto", "auto"]}>

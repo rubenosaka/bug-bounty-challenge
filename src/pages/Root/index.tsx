@@ -2,6 +2,7 @@ import { Box, CircularProgress, Slide } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useUserStore } from "../../api/services/User";
 import AppHeader from "../../components/AppHeader";
+import LanguageRouter from "../../components/LanguageRouter";
 import useMatchedRoute from "../../hooks/useMatchedRoute";
 import { observer } from "mobx-react";
 import { useEffect } from "react";
@@ -61,59 +62,61 @@ const Root = () => {
   }
 
   return (
-    <div
-      id="portal-container"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-      }}
-    >
-      {loadingApp && (
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          width="100%"
-          height="100%"
-        >
-          <CircularProgress color="primary" size={100} />
-        </Box>
-      )}
-      <Box
-        sx={{
-          display: "flex",
-          height: "100%",
-          width: "100%",
-          background: "#f5f5f5",
+    <LanguageRouter>
+      <div
+        id="portal-container"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
         }}
       >
-        <Slide
-          direction="down"
-          in={!loadingApp}
-          mountOnEnter
-          unmountOnExit
-          appear={false}
-          timeout={300}
-        >
-          <AppHeader user={user ?? {}} pageTitle={pageTitle} />
-        </Slide>
+        {loadingApp && (
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            width="100%"
+            height="100%"
+          >
+            <CircularProgress color="primary" size={100} />
+          </Box>
+        )}
         <Box
-          component="main"
           sx={{
-            position: "relative",
-            height: `calc(100% - ${theme.tokens.header.height})`,
+            display: "flex",
+            height: "100%",
             width: "100%",
-            marginTop:
-              theme.tokens.header.height /* Necessary because of AppBar */,
+            background: "#f5f5f5",
           }}
         >
-          {MatchedElement}
+          <Slide
+            direction="down"
+            in={!loadingApp}
+            mountOnEnter
+            unmountOnExit
+            appear={false}
+            timeout={300}
+          >
+            <AppHeader user={user ?? {}} pageTitle={pageTitle} />
+          </Slide>
+          <Box
+            component="main"
+            sx={{
+              position: "relative",
+              height: `calc(100% - ${theme.tokens.header.height})`,
+              width: "100%",
+              marginTop:
+                theme.tokens.header.height /* Necessary because of AppBar */,
+            }}
+          >
+            {MatchedElement}
+          </Box>
         </Box>
-      </Box>
-    </div>
+      </div>
+    </LanguageRouter>
   );
 };
 

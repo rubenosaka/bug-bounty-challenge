@@ -21,16 +21,32 @@ const Loading = (
     </Box>
   </Grow>
 );
-const lazyLoad = (Component: any) => () => (
-  <Suspense fallback={Loading}>
-    <Component />
-  </Suspense>
-);
+const lazyLoad = (Component: any) => () =>
+  (
+    <Suspense fallback={Loading}>
+      <Component />
+    </Suspense>
+  );
 
 export const routes: TRoute[] = [
   {
+    path: ERoute.ROOT,
+    Icon: <Icon path={mdiHome} size={1} />,
+    Component: lazyLoad(Home),
+  },
+  {
     path: ERoute.HOME,
     Icon: <Icon path={mdiHome} size={1} />,
-    Component: lazyLoad(Home)
-  }
+    Component: lazyLoad(Home),
+  },
+  {
+    path: ERoute.HOME_EN,
+    Icon: <Icon path={mdiHome} size={1} />,
+    Component: lazyLoad(Home),
+  },
+  {
+    path: ERoute.HOME_DE,
+    Icon: <Icon path={mdiHome} size={1} />,
+    Component: lazyLoad(Home),
+  },
 ];
