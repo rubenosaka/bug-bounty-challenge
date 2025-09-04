@@ -33,6 +33,26 @@ This is a React TypeScript application with several bugs and issues that need to
 - React Router v5
 - i18next for internationalization
 - Notistack for notifications
+- React Scripts v5 (updated from v4 for security)
+
+---
+
+## Rubén González - Improvements
+
+### Security Mitigations
+
+I have updated the project dependencies and applied security overrides:
+
+**Major Updates:**
+
+- Updated `react-scripts` from v4.0.3 to v5.0.1 (eliminated 129 vulnerabilities)
+
+**Security Overrides:**
+
+- `nth-check@^2.0.1` (fixes ReDoS vulnerability)
+- `postcss@^8.4.47` (fixes parsing error vulnerability)
+
+This reduces vulnerabilities from 138 (7 critical, 31 high, 100 moderate) to 9 (0 critical, 6 high, 3 moderate) - a 93% improvement. The remaining webpack-dev-server warning is pinned by react-scripts 5 and only affects development builds. In a production project, I would resolve this by migrating to Vite/Next or updating the toolchain.
 
 ---
 
