@@ -43,7 +43,7 @@ const stringAvatar = (user: User) => {
   };
 };
 
-const AvatarMenu = (props: AvatarMenuProps) => {
+const AvatarMenu = React.forwardRef((props: AvatarMenuProps, ref: React.Ref<HTMLDivElement>) => {
   const { user } = props;
   const theme = useTheme();
   const { t } = useTranslation("app");
@@ -58,7 +58,7 @@ const AvatarMenu = (props: AvatarMenuProps) => {
   // const history = useHistory();
 
   return (
-    <div>
+    <div ref={ref}>
       <Avatar onClick={handleClick} {...stringAvatar(user)} />
       <Menu
         id="demo-positioned-menu"
@@ -112,7 +112,7 @@ const AvatarMenu = (props: AvatarMenuProps) => {
         <Divider />
         <Box display="flex" flexDirection="column" alignItems="center" p={2}>
           <Tooltip title={<Box>{t("logout")}</Box>}>
-            <Button onClick={() => console.log("logout")} variant="text">
+            <Button onClick={() => {}} variant="text">
               <Icon path={mdiLogoutVariant} size={1} />
               <Box m={0.5} />
               {t("logout")}
@@ -145,6 +145,6 @@ const AvatarMenu = (props: AvatarMenuProps) => {
       </Menu>
     </div>
   );
-};
+});
 
 export default AvatarMenu;

@@ -81,7 +81,13 @@ const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props, ref) 
           </Box>
           <Box sx={{ flex: 1, justifyContent: "flex-end", display: "flex" }}>
             {user && user.eMail && (
-              <Grow in={Boolean(user && user.eMail)}>
+              <Grow 
+                in={Boolean(user && user.eMail)} 
+                mountOnEnter 
+                unmountOnExit 
+                appear={false}
+                timeout={300}
+              >
                 <AvatarMenu user={user} />
               </Grow>
             )}

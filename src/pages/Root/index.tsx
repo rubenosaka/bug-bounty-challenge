@@ -27,7 +27,6 @@ const Root = () => {
   const userStore = useUserStore();
   const { user } = userStore || {};
   const theme = useTheme();
-  console.log(user);
   const routes = [...useRoutes] as readonly TRoute[];
   const [fallbackRoute] = routes;
   const Fallback = fallbackRoute.Component;
@@ -69,7 +68,7 @@ const Root = () => {
         top: 0,
         left: 0,
         width: "100vw",
-        height: "100vh"
+        height: "100vh",
       }}
     >
       {loadingApp && (
@@ -88,10 +87,17 @@ const Root = () => {
           display: "flex",
           height: "100%",
           width: "100%",
-          background: "#f5f5f5"
+          background: "#f5f5f5",
         }}
       >
-        <Slide direction="down" in={!loadingApp} mountOnEnter>
+        <Slide
+          direction="down"
+          in={!loadingApp}
+          mountOnEnter
+          unmountOnExit
+          appear={false}
+          timeout={300}
+        >
           <AppHeader user={user ?? {}} pageTitle={pageTitle} />
         </Slide>
         <Box
@@ -101,7 +107,7 @@ const Root = () => {
             height: `calc(100% - ${theme.tokens.header.height})`,
             width: "100%",
             marginTop:
-              theme.tokens.header.height /* Necessary because of AppBar */
+              theme.tokens.header.height /* Necessary because of AppBar */,
           }}
         >
           {MatchedElement}

@@ -26,22 +26,29 @@ const useMatchedRoute = (
   params: PathParams | null;
   MatchedElement: JSX.Element;
 } => {
-  const { notFoundComponent, matchOnSubPath, transition = "fade" } =
-    options || {};
+  const {
+    notFoundComponent,
+    matchOnSubPath,
+    transition = "fade",
+  } = options || {};
   const location = useLocation();
   // `exact`, `sensitive` and `strict` options are set to true
   // to ensure type safety.
   const results = routes
-    .map((route: TRoute): {
-      route: TRoute;
-      match: any | null;
-    } => ({
-      route,
-      match: matchPath(location.pathname, {
-        path: route.path,
-        sensitive: !matchOnSubPath
+    .map(
+      (
+        route: TRoute
+      ): {
+        route: TRoute;
+        match: any | null;
+      } => ({
+        route,
+        match: matchPath(location.pathname, {
+          path: route.path,
+          sensitive: !matchOnSubPath,
+        }),
       })
-    }))
+    )
     .filter(({ match }) => !!match && (matchOnSubPath ? true : match.isExact));
   const [firstResult] = results;
   const { match, route } = firstResult || {};
@@ -52,9 +59,15 @@ const useMatchedRoute = (
     if (transition === "fade") {
       const FadeTransition: React.FC<{ match: any }> = ({
         children,
-        match
+        match,
       }) => (
-        <Fade in={match ? true : false} timeout={300} unmountOnExit>
+        <Fade
+          in={match ? true : false}
+          timeout={300}
+          mountOnEnter
+          unmountOnExit
+          appear={false}
+        >
           <Box height={"100%"}>{children}</Box>
         </Fade>
       );
@@ -65,9 +78,15 @@ const useMatchedRoute = (
     if (transition === "grow") {
       const GrowTransition: React.FC<{ match: any }> = ({
         children,
-        match
+        match,
       }) => (
-        <Grow in={match ? true : false} timeout={300} unmountOnExit>
+        <Grow
+          in={match ? true : false}
+          timeout={300}
+          mountOnEnter
+          unmountOnExit
+          appear={false}
+        >
           <Box height={"100%"}>{children}</Box>
         </Grow>
       );
@@ -79,13 +98,15 @@ const useMatchedRoute = (
       const [, direction] = transition.split("-");
       const SlideTransition: React.FC<{ match: any }> = ({
         children,
-        match
+        match,
       }) => (
         <Slide
           in={match ? true : false}
           direction={direction as "left" | "right" | "up" | "down"}
           timeout={300}
+          mountOnEnter
           unmountOnExit
+          appear={false}
         >
           <Box height={"100%"}>{children}</Box>
         </Slide>
@@ -93,7 +114,9 @@ const useMatchedRoute = (
 
       return SlideTransition;
     }
-    return (({ children }) => children) as React.FC<{ match: any }>;
+    return (({ children }) => (
+      <Box height={"100%"}>{children}</Box>
+    )) as React.FC<{ match: any }>;
   }, [transition]);
 
   return {
@@ -135,7 +158,7 @@ const useMatchedRoute = (
           </Transition>
         )}
       </Switch>
-    )
+    ),
   };
 };
 
