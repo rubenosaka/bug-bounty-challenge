@@ -116,6 +116,75 @@ This reduces vulnerabilities from 138 (7 critical, 31 high, 100 moderate) to 9 (
   - Centralized content management
 - **Translation Quality**: German translations created using Google Translate for demonstration purposes
 
+**Testing Implementation:**
+
+- **Test Coverage**: Added comprehensive unit tests for all major components
+- **Test Files**:
+  - `src/pages/Home/__tests__/Home.test.tsx` - Tests for Home component (5 tests)
+  - `src/components/LanguageSwitcher/__tests__/LanguageSwitcher.test.tsx` - Tests for language switcher (2 tests)
+  - `src/components/LanguageRouter/__tests__/LanguageRouter.test.tsx` - Tests for language router (2 tests)
+- **Test Results**: All 9 tests passing successfully
+- **Mock Strategy**: Used proper mocking for `react-i18next` without modifying production configuration
+- **Test Environment**: Jest with React Testing Library and jsdom
+- **Build Verification**: Production build tested and working correctly
+
+**Quality Assurance:**
+
+- ✅ All tests passing (9/9)
+- ✅ Production build successful
+- ✅ No console errors or warnings
+- ✅ TypeScript compilation without errors
+- ✅ Security vulnerabilities reduced by 93%
+- ✅ Code follows React best practices
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
+
+```bash
+npm start
+```
+
+### Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run tests with coverage
+npm test -- --coverage
+```
+
+### Production Build
+
+```bash
+npm run build
+```
+
+### Local Production Testing
+
+```bash
+# Build the project
+npm run build
+
+# Serve the build locally
+npx serve -s build
+```
+
 ---
 
 Created with CodeSandbox

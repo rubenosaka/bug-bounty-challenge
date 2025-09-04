@@ -1,11 +1,12 @@
 import { Grow, Box, Theme, Toolbar, Typography } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { styled, useTheme } from "@mui/material/styles";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "../../api/services/User/store";
 import AvatarMenu from "../AvatarMenu";
 import LanguageSwitcher from "../LanguageSwitcher";
+import { useCountdown } from "../../hooks/useCountdown";
 
 interface AppBarProps extends MuiAppBarProps {
   theme?: Theme;
@@ -35,28 +36,9 @@ const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props, ref) 
   const { t } = useTranslation("app");
   const theme = useTheme();
 
-  const [count, setCount] = useState(0);
-  const hours = 1;
-  const minutes = hours * 60;
-  const seconds = minutes * 60;
-  const countdown = Math.max(0, seconds - count);
-  const countdownMinutes = `${Math.floor(countdown / 60)}`.padStart(2, "0");
-  const countdownSeconds = `${Math.floor(countdown % 60)}`.padStart(2, "0");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((c) => {
-        const newCount = c + 1;
-        // Stop counting when countdown reaches 0
-        if (newCount >= seconds) {
-          return seconds;
-        }
-        return newCount;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [seconds]);
+  const COUNTDOWN_HOURS = 1;
+  const COUNTDOWN_SECONDS = COUNTDOWN_HOURS * 60 * 60;
+  const { countdownMinutes, countdownSeconds } = useCountdown(COUNTDOWN_SECONDS);
 
   return (
     <AppBar ref={ref} position="fixed" sx={{ width: "100vw" }}>

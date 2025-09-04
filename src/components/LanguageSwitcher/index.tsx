@@ -2,6 +2,7 @@ import { FormControl, MenuItem, Select, SelectChangeEvent } from "@mui/material"
 import React from "react";
 import { useTranslation } from "react-i18next";
 import ReactCountryFlag from "react-country-flag";
+import { AVAILABLE_LANGUAGES, getLanguageByCode } from "../../config/languages";
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
@@ -11,12 +12,12 @@ const LanguageSwitcher: React.FC = () => {
     i18n.changeLanguage(newLanguage);
   };
 
-  const languages = [
-    { code: "en", name: "English", countryCode: "US" },
-    { code: "de", name: "Deutsch", countryCode: "DE" }
-  ];
+  const currentLanguage = getLanguageByCode(i18n.language);
 
-  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
+  const FLAG_DIMENSIONS = {
+    header: { width: '16px', height: '12px', marginRight: '6px' },
+    dropdown: { width: '20px', height: '15px', marginRight: '8px' }
+  } as const;
 
   return (
     <FormControl size="small" sx={{ minWidth: 120 }}>
@@ -30,9 +31,7 @@ const LanguageSwitcher: React.FC = () => {
               countryCode={currentLanguage.countryCode}
               svg
               style={{
-                width: '16px',
-                height: '12px',
-                marginRight: '6px',
+                ...FLAG_DIMENSIONS.header,
                 borderRadius: '2px'
               }}
             />
@@ -55,15 +54,13 @@ const LanguageSwitcher: React.FC = () => {
           },
         }}
       >
-        {languages.map((language) => (
+        {AVAILABLE_LANGUAGES.map((language) => (
           <MenuItem key={language.code} value={language.code}>
             <ReactCountryFlag
               countryCode={language.countryCode}
               svg
               style={{
-                width: '20px',
-                height: '15px',
-                marginRight: '8px',
+                ...FLAG_DIMENSIONS.dropdown,
                 borderRadius: '2px'
               }}
             />
