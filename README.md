@@ -81,6 +81,30 @@ This reduces vulnerabilities from 138 (7 critical, 31 high, 100 moderate) to 9 (
 - **Impact**: Performance degradation and unpredictable countdown behavior
 - **Solution**: Implement proper cleanup with `clearInterval` in useEffect return function
 
+**Language Switcher Implementation:**
+
+- **Feature**: Added language selector in app header with flag icons
+- **Languages**: English (US flag) and German (DE flag)
+- **Library**: `react-country-flag` for visual flag representation
+- **Integration**: Seamlessly integrated with existing i18next configuration
+- **UX**: Dropdown with current language display and flag icons for selection
+
+**Home Page Refactoring:**
+
+- **Issue**: Hardcoded issues array in component, not internationalized
+- **Solution**: Refactored to use i18next with `returnObjects: true`
+- **Changes**:
+  - Defined `Issue` interface with `{ id: string; icon: string; title: string; description: string }`
+  - Moved issues array to `home.issues` in translation files
+  - Used `issue.id` as React key (fixes console warning)
+  - Updated MUI v5 color prop: `color="text.secondary"` instead of `color="textSecondary"`
+- **Benefits**:
+  - Full internationalization of issues list
+  - Dynamic language switching for all content
+  - Better performance with unique keys
+  - Centralized content management
+- **Translation Quality**: German translations created using Google Translate for demonstration purposes
+
 ---
 
 Created with CodeSandbox
