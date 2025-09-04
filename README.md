@@ -54,6 +54,20 @@ I have updated the project dependencies and applied security overrides:
 
 This reduces vulnerabilities from 138 (7 critical, 31 high, 100 moderate) to 9 (0 critical, 6 high, 3 moderate) - a 93% improvement. The remaining webpack-dev-server warning is pinned by react-scripts 5 and only affects development builds. In a production project, I would resolve this by migrating to Vite/Next or updating the toolchain.
 
+### Development Notes
+
+**Branch Management:**
+
+- Feature branches have been preserved (not deleted) for review purposes
+- Each branch contains specific fixes and can be consulted if needed
+- Main branch contains the integrated, working solution
+
+**i18n Implementation Notes:**
+
+- The `<b>` tag in `en.json` was intentionally preserved as per challenge requirements ("do not change the i18n text")
+- In a production environment, `<strong>` would be the semantically correct choice over `<b>`
+- The solution uses `react-i18next`'s `Trans` component for safe HTML rendering
+
 ---
 
 Created with CodeSandbox
